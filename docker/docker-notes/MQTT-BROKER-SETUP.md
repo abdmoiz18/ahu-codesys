@@ -1,6 +1,7 @@
 # AHU Homelab - MQTT Broker (Containerised Mosquitto)
 
 Date : 01-06-2026
+
 Time : 9:30 PM IST (GMT +05:30)
 
 This is the first component of my Building Automation Systems (BAS) Homelab. It runs an **Eclipse Mosquitto** MQTT Broker inside a Docker container, which acts as the central message bus for all simulated field devices (motors, temperature sensors, smoke detectors) anmd the supervisory stack (historian, dashboard).
