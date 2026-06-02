@@ -9,4 +9,14 @@ services:
         volumes:
             - ./mosquitto/config:/mosquitto/config
         restart: unless-stopped
+    
+    motor-simulator:
+        build: ./motor-simulator
+        container_name: ahu-motor-sim
+        depends_on:
+            - mqtt-broker
+        restart: unless-stopped
+        environment:
+            MQTT_BROKER: mqtt-broker
+
 

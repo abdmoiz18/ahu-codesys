@@ -5,6 +5,7 @@ import json
 import os
 broker = os.getenv("MQTT_BROKER", "localhost")
 
+broker = "localhost"
 port = 1883
 topic_status = "ahu/motor/status"
 topic_alarm = "ahu/motor/alarm"
