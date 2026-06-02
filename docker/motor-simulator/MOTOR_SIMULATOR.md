@@ -129,4 +129,4 @@ The broker's `$SYS` topics also confirm that a client is connected and messages 
 
 - `docker/motor-simulator/Dockerfile` - container definition
 
-` 'docker/docker-compose.yml` - service definition (together with MQTT broker)
+- 'docker/docker-compose.yml` - service definition (together with MQTT broker)
