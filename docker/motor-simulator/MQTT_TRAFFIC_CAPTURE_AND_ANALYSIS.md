@@ -102,4 +102,4 @@ For future captures, start `dumpcap` before the client to record the entire TCP 
 
 - `mqtt_capture.pcap` - raw packet capture.
 
-- `wireshark_screenshots` - folder containing the four screenshots.
+- `wireshark_screenshots` - the folder containing the four screenshoots.
