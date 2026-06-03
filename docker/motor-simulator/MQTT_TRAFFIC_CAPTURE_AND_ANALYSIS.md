@@ -1,6 +1,6 @@
 # MQTT Traffic Capture & Analysis - Motor Simulator
 
-This document described how I captured and analyzed MQTT traffic from the motor simulator (Python script publishing to '`ahu/motor/status`) using `dumpcap` on a Raspberry Pi, trasnferred the capture (.pcap file) to Windows, and examined it in Wireshark.
+This document described how I captured and analyzed MQTT traffic from the motor simulator (Python script publishing to '`ahu/motor/status`) using `dumpcap` on a Raspberry Pi, transferred the capture (.pcap file) to Windows, and examined it in Wireshark.
 
 ## Why use `dumpcap` instead of `tshark`?
 
@@ -75,10 +75,10 @@ scp abdmoiz18@192.168.x.x:~/mqtt_capture.pcap .
 
 | **Screenshot** | **Description** |
 |----------------|-----------------|
-| ![**Packet 1** (first captured publish)](/home/abdmoiz18/ahu-codesys/docker/motor-simulator/wireshark_screenshots/Screenshot 2026-06-03 175019.png) | Shows `MotorOut: true`. Capture started after script had already run for a few seconds. |
-| ![**Packet 41** (first toggle after publish began)](/home/abdmoiz18/ahu-codesys/docker/motor-simulator/wireshark_screenshots/Screenshot 2026-06-03 175030.png) | `MotorOut: false`. The time gap between Packet 1 and Packet 41 is ~9 seconds, not exactly 10, because the first packet was not the very first publish. |
-| ![**Packet 85** (second toggle)](/home/abdmoiz18/ahu-codesys/docker/motor-simulator/wireshark_screenshots/Screenshot 2026-06-03 175042.png) | `MotorOut: true`. Time difference between Packet 41 and Packet 85 is 10.0099 seconds, the correct periodic alternation. |
-| ![**MQTT/TCP ACK alternation**](/home/abdmoiz18/ahu-codesys/docker/motor-simulator/wireshark_screenshots/Screenshot 2026-06-03 175703.png) | Shows that after each MQTT publish packet, the broker responds with a pure TCP ACK (Len:0). This is normal TCP behaviour and confirms reliable delivery. |
+| ![**Packet 1** (first captured publish)](wireshark_screenshots/Screenshot 2026-06-03 175019.png) | Shows `MotorOut: true`. Capture started after script had already run for a few seconds. |
+| ![**Packet 41** (first toggle after publish began)](wireshark_screenshots/Screenshot 2026-06-03 175030.png) | `MotorOut: false`. The time gap between Packet 1 and Packet 41 is ~9 seconds, not exactly 10, because the first packet was not the very first publish. |
+| ![**Packet 85** (second toggle)](wireshark_screenshots/Screenshot 2026-06-03 175042.png) | `MotorOut: true`. Time difference between Packet 41 and Packet 85 is 10.0099 seconds, the correct periodic alternation. |
+| ![**MQTT/TCP ACK alternation**](wireshark_screenshots/Screenshot 2026-06-03 175703.png) | Shows that after each MQTT publish packet, the broker responds with a pure TCP ACK (Len:0). This is normal TCP behaviour and confirms reliable delivery. |
 
 ### Missing TCP Three-Way Handshake
 
