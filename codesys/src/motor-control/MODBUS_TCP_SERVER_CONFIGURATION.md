@@ -100,6 +100,7 @@ The client would then need to mask the appropriate bit.
 ## 7. Summary of Current Setup
 
 | Feature | Status | How to use |
+|---------|--------|------------|
 | WebVisu HMI | Working | Direct binding to `GVL.xx` variables. |
 | Modbus TCP Server | Configured, listening on port 502 | Server enabled, "Writable" checked, 10 holding registers. |
 | Coil table | Disabled | Not needed for WebVisu, can be enabled later. |
