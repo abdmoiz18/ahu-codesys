@@ -1,4 +1,5 @@
 {attribute 'qualified_only'}
+(* This attribute forces the use of prefix GVL. in the implementation part of the POU *)
 VAR_GLOBAL
     (* Inputs - Commands from HMI *)
     StartCmd AT %QX0.0        : BOOL;
