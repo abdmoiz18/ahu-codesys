@@ -1,22 +1,61 @@
 version: '3.8'
+
 services:
-    mqtt-broker:
-        image: eclipse-mosquitto:2.0.15
-        container_name: ahu-mqtt
-        ports:
-            - "1883:1883"
-            - "9001:9001"
-        volumes:
-            - ./mosquitto/config:/mosquitto/config
-        restart: unless-stopped
-    
-    motor-simulator:
-        build: ./motor-simulator
-        container_name: ahu-motor-sim
-        depends_on:
-            - mqtt-broker
-        restart: unless-stopped
-        environment:
-            MQTT_BROKER: mqtt-broker
+  mqtt-broker:
+    image: eclipse-mosquitto:2.0.15
+    container_name: ahu-mqtt
+    ports:
+      - "1883:1883"
+      - "127.0.0.1:9001:9001"      # WebSocket only on localhost
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+    restart: unless-stopped
 
+  motor-simulator:
+    build: ./motor-simulator
+    container_name: ahu-motor-sim
+    depends_on:
+      - mqtt-broker
+    restart: unless-stopped
+    environment:
+      MQTT_BROKER: mqtt-broker
 
+  thermal-simulator:
+    build: ./thermal-simulator
+    container_name: ahu-thermal-sim
+    depends_on:
+      - mqtt-broker
+    restart: unless-stopped
+    environment:
+      MQTT_BROKER: mqtt-broker
+
+  influxdb:
+    image: influxdb:2.7
+    container_name: ahu-influxdb
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxdb-data:/var/lib/influxdb2
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: ${INFLUXDB_USER}
+      DOCKER_INFLUXDB_INIT_PASSWORD: ${INFLUXDB_PASSWORD}
+      DOCKER_INFLUXDB_INIT_ORG: ${INFLUXDB_ORG}
+      DOCKER_INFLUXDB_INIT_BUCKET: ${INFLUXDB_BUCKET}
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: ${INFLUXDB_TOKEN}
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:10.4.5
+    container_name: ahu-grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      - influxdb
+    restart: unless-stopped
+
+volumes:
+  influxdb-data:
+  grafana-data:
