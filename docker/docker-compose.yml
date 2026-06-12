@@ -6,7 +6,7 @@ services:
     container_name: ahu-mqtt
     ports:
       - "1883:1883"
-      - "127.0.0.1:9001:9001"      # WebSocket only on localhost
+      - "127.0.0.1:9001:9001"
     volumes:
       - ./mosquitto/config:/mosquitto/config
     restart: unless-stopped
@@ -55,6 +55,17 @@ services:
     depends_on:
       - influxdb
     restart: unless-stopped
+
+  mqtt-influx-bridge:
+    build: ./mqtt-influx-bridge
+    container_name: ahu-bridge
+    depends_on:
+      - mqtt-broker
+      - influxdb
+    restart: unless-stopped
+    environment:
+      - MQTT_BROKER=mqtt-broker
+      - INFLUX_URL=http://influxdb:8086
 
 volumes:
   influxdb-data:
