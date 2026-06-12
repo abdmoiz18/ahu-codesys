@@ -112,7 +112,7 @@ This document is a complete chronological record of the debugging session. Each 
 1. Root cause identified (editor canvas non‑interactive for remote targets).
 2. Motor logic already proven via variable forcing.
 3. Diminishing returns – all reasonable configuration checks exhausted.
-4. Emotional energy preserved for other project parts (Docker, networking).
+4. Energy preserved for other project parts (Docker, networking).
 
 ---
 
@@ -142,6 +142,4 @@ This document is a complete chronological record of the debugging session. Each 
 5. Return to main project, include WebVisu in build, test motor buttons via browser.
 
 ---
-
-*End of WebVisu Troubleshooting Log – logic verified, HMI pending browser validation.*
 
