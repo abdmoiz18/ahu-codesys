@@ -1,0 +1,947 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://www.plcopen.org/xml/tc6_0200">
+  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP21 Patch 5" creationDateTime="2026-06-15T00:53:37.6584983" />
+  <contentHeader name="AHU-Project.project" modificationDateTime="2026-06-15T00:41:05.8983208">
+    <coordinateInfo>
+      <fbd>
+        <scaling x="1" y="1" />
+      </fbd>
+      <ld>
+        <scaling x="1" y="1" />
+      </ld>
+      <sfc>
+        <scaling x="1" y="1" />
+      </sfc>
+    </coordinateInfo>
+    <addData>
+      <data name="http://www.3s-software.com/plcopenxml/projectinformation" handleUnknown="implementation">
+        <ProjectInformation />
+      </data>
+    </addData>
+  </contentHeader>
+  <types>
+    <dataTypes />
+    <pous>
+      <pou name="PLC_PRG_LD" pouType="program">
+        <interface>
+          <localVars>
+            <variable name="temp_LowerLimit">
+              <type>
+                <REAL />
+              </type>
+            </variable>
+            <variable name="temp_UpperLimit">
+              <type>
+                <REAL />
+              </type>
+            </variable>
+            <variable name="temp_SetCond">
+              <type>
+                <BOOL />
+              </type>
+            </variable>
+            <variable name="temp_ResetCond">
+              <type>
+                <BOOL />
+              </type>
+            </variable>
+            <variable name="RS_HeatControl">
+              <type>
+                <derived name="RS" />
+              </type>
+            </variable>
+          </localVars>
+        </interface>
+        <body>
+          <LD>
+            <!--ObjectVersion: LD2-->
+            <leftPowerRail localId="0">
+              <position x="0" y="0" />
+              <connectionPointOut formalParameter="none" />
+            </leftPowerRail>
+            <comment localId="3" height="0" width="0">
+              <position x="0" y="0" />
+              <content>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </content>
+            </comment>
+            <vendorElement localId="2">
+              <position x="0" y="0" />
+              <alternativeText>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </alternativeText>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/fbdelementtype" handleUnknown="implementation">
+                  <ElementType xmlns="">networktitle</ElementType>
+                </data>
+              </addData>
+            </vendorElement>
+            <contact localId="5">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="0" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>GVL.StartCmd</variable>
+            </contact>
+            <contact localId="6">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="0" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>GVL.MotorInternal</variable>
+            </contact>
+            <contact localId="7" negated="true">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="5" />
+                <connection refLocalId="6" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>GVL.StopCmd</variable>
+            </contact>
+            <contact localId="8" negated="true">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="7" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>GVL.EStop</variable>
+            </contact>
+            <coil localId="9">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="8" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>GVL.MotorInternal</variable>
+            </coil>
+            <vendorElement localId="4">
+              <position x="0" y="0" />
+              <alternativeText>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">ParallelBranch</xhtml>
+              </alternativeText>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/ldparallelbranch" handleUnknown="implementation">
+                  <ParallelBranch mode="sce" xmlns="">
+                    <BranchInput>
+                      <connectionPointIn>
+                        <connection refLocalId="0" />
+                      </connectionPointIn>
+                    </BranchInput>
+                    <BranchTrees>
+                      <Tree>
+                        <connectionPointIn>
+                          <connection refLocalId="5" />
+                        </connectionPointIn>
+                      </Tree>
+                      <Tree>
+                        <connectionPointIn>
+                          <connection refLocalId="6" />
+                        </connectionPointIn>
+                      </Tree>
+                    </BranchTrees>
+                  </ParallelBranch>
+                </data>
+              </addData>
+            </vendorElement>
+            <comment localId="12" height="0" width="0">
+              <position x="0" y="0" />
+              <content>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </content>
+            </comment>
+            <vendorElement localId="11">
+              <position x="0" y="0" />
+              <alternativeText>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </alternativeText>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/fbdelementtype" handleUnknown="implementation">
+                  <ElementType xmlns="">networktitle</ElementType>
+                </data>
+              </addData>
+            </vendorElement>
+            <contact localId="13">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="0" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>GVL.OverloadMem</variable>
+            </contact>
+            <coil localId="14" storage="reset">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="13" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>GVL.MotorInternal</variable>
+            </coil>
+            <comment localId="17" height="0" width="0">
+              <position x="0" y="0" />
+              <content>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </content>
+            </comment>
+            <vendorElement localId="16">
+              <position x="0" y="0" />
+              <alternativeText>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </alternativeText>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/fbdelementtype" handleUnknown="implementation">
+                  <ElementType xmlns="">networktitle</ElementType>
+                </data>
+              </addData>
+            </vendorElement>
+            <contact localId="18">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="0" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>GVL.OverloadTrip</variable>
+            </contact>
+            <contact localId="19" negated="true">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="18" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>GVL.ResetCmd</variable>
+            </contact>
+            <coil localId="20" storage="set">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="19" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>GVL.OverloadMem</variable>
+            </coil>
+            <comment localId="23" height="0" width="0">
+              <position x="0" y="0" />
+              <content>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </content>
+            </comment>
+            <vendorElement localId="22">
+              <position x="0" y="0" />
+              <alternativeText>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </alternativeText>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/fbdelementtype" handleUnknown="implementation">
+                  <ElementType xmlns="">networktitle</ElementType>
+                </data>
+              </addData>
+            </vendorElement>
+            <contact localId="24">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="0" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>GVL.ResetCmd</variable>
+            </contact>
+            <coil localId="25" storage="reset">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="24" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>GVL.OverloadMem</variable>
+            </coil>
+            <comment localId="28" height="0" width="0">
+              <position x="0" y="0" />
+              <content>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </content>
+            </comment>
+            <vendorElement localId="27">
+              <position x="0" y="0" />
+              <alternativeText>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </alternativeText>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/fbdelementtype" handleUnknown="implementation">
+                  <ElementType xmlns="">networktitle</ElementType>
+                </data>
+              </addData>
+            </vendorElement>
+            <contact localId="29">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="0" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>GVL.OverloadMem</variable>
+            </contact>
+            <coil localId="30">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="29" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>GVL.OverloadAlarm</variable>
+            </coil>
+            <comment localId="33" height="0" width="0">
+              <position x="0" y="0" />
+              <content>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </content>
+            </comment>
+            <vendorElement localId="32">
+              <position x="0" y="0" />
+              <alternativeText>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </alternativeText>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/fbdelementtype" handleUnknown="implementation">
+                  <ElementType xmlns="">networktitle</ElementType>
+                </data>
+              </addData>
+            </vendorElement>
+            <contact localId="34">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="0" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>GVL.MotorInternal</variable>
+            </contact>
+            <contact localId="35" negated="true">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="34" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>GVL.OverloadMem</variable>
+            </contact>
+            <contact localId="36" negated="true">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="35" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>GVL.EStop</variable>
+            </contact>
+            <coil localId="37">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="36" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>GVL.MotorOut</variable>
+            </coil>
+            <comment localId="40" height="0" width="0">
+              <position x="0" y="0" />
+              <content>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </content>
+            </comment>
+            <vendorElement localId="39">
+              <position x="0" y="0" />
+              <alternativeText>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </alternativeText>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/fbdelementtype" handleUnknown="implementation">
+                  <ElementType xmlns="">networktitle</ElementType>
+                </data>
+              </addData>
+            </vendorElement>
+            <contact localId="41">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="0" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>GVL_Temp.HeatOutput</variable>
+            </contact>
+            <inVariable localId="43">
+              <position x="0" y="0" />
+              <connectionPointOut />
+              <expression>GVL_Temp.SimTemp</expression>
+            </inVariable>
+            <inVariable localId="44">
+              <position x="0" y="0" />
+              <connectionPointOut />
+              <expression>0.001</expression>
+            </inVariable>
+            <block localId="42" typeName="ADD">
+              <position x="0" y="0" />
+              <inputVariables>
+                <variable formalParameter="EN">
+                  <connectionPointIn>
+                    <connection refLocalId="41" />
+                  </connectionPointIn>
+                </variable>
+                <variable formalParameter="">
+                  <connectionPointIn>
+                    <connection refLocalId="43" />
+                  </connectionPointIn>
+                </variable>
+                <variable formalParameter="">
+                  <connectionPointIn>
+                    <connection refLocalId="44" />
+                  </connectionPointIn>
+                </variable>
+              </inputVariables>
+              <inOutVariables />
+              <outputVariables>
+                <variable formalParameter="ENO">
+                  <connectionPointOut />
+                </variable>
+                <variable formalParameter="">
+                  <connectionPointOut>
+                    <expression>GVL_Temp.SimTemp</expression>
+                  </connectionPointOut>
+                </variable>
+              </outputVariables>
+            </block>
+            <inVariable localId="47">
+              <position x="0" y="0" />
+              <connectionPointOut />
+              <expression>GVL_Temp.SimTemp</expression>
+            </inVariable>
+            <block localId="46" typeName="MOVE">
+              <position x="0" y="0" />
+              <inputVariables>
+                <variable formalParameter="EN">
+                  <connectionPointIn>
+                    <connection refLocalId="42" formalParameter="ENO" />
+                  </connectionPointIn>
+                </variable>
+                <variable formalParameter="">
+                  <connectionPointIn>
+                    <connection refLocalId="47" />
+                  </connectionPointIn>
+                </variable>
+              </inputVariables>
+              <inOutVariables />
+              <outputVariables>
+                <variable formalParameter="ENO">
+                  <connectionPointOut />
+                </variable>
+                <variable formalParameter="">
+                  <connectionPointOut>
+                    <expression>GVL_Temp.SimTemp</expression>
+                  </connectionPointOut>
+                </variable>
+              </outputVariables>
+            </block>
+            <comment localId="51" height="0" width="0">
+              <position x="0" y="0" />
+              <content>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </content>
+            </comment>
+            <vendorElement localId="50">
+              <position x="0" y="0" />
+              <alternativeText>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </alternativeText>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/fbdelementtype" handleUnknown="implementation">
+                  <ElementType xmlns="">networktitle</ElementType>
+                </data>
+              </addData>
+            </vendorElement>
+            <contact localId="52" negated="true">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="0" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>GVL_Temp.HeatOutput</variable>
+            </contact>
+            <inVariable localId="54">
+              <position x="0" y="0" />
+              <connectionPointOut />
+              <expression>GVL_Temp.SimTemp</expression>
+            </inVariable>
+            <inVariable localId="55">
+              <position x="0" y="0" />
+              <connectionPointOut />
+              <expression>0.0006</expression>
+            </inVariable>
+            <block localId="53" typeName="SUB">
+              <position x="0" y="0" />
+              <inputVariables>
+                <variable formalParameter="EN">
+                  <connectionPointIn>
+                    <connection refLocalId="52" />
+                  </connectionPointIn>
+                </variable>
+                <variable formalParameter="">
+                  <connectionPointIn>
+                    <connection refLocalId="54" />
+                  </connectionPointIn>
+                </variable>
+                <variable formalParameter="">
+                  <connectionPointIn>
+                    <connection refLocalId="55" />
+                  </connectionPointIn>
+                </variable>
+              </inputVariables>
+              <inOutVariables />
+              <outputVariables>
+                <variable formalParameter="ENO">
+                  <connectionPointOut />
+                </variable>
+                <variable formalParameter="">
+                  <connectionPointOut>
+                    <expression>GVL_Temp.SimTemp</expression>
+                  </connectionPointOut>
+                </variable>
+              </outputVariables>
+            </block>
+            <inVariable localId="58">
+              <position x="0" y="0" />
+              <connectionPointOut />
+              <expression>GVL_Temp.SimTemp</expression>
+            </inVariable>
+            <block localId="57" typeName="MOVE">
+              <position x="0" y="0" />
+              <inputVariables>
+                <variable formalParameter="EN">
+                  <connectionPointIn>
+                    <connection refLocalId="53" formalParameter="ENO" />
+                  </connectionPointIn>
+                </variable>
+                <variable formalParameter="">
+                  <connectionPointIn>
+                    <connection refLocalId="58" />
+                  </connectionPointIn>
+                </variable>
+              </inputVariables>
+              <inOutVariables />
+              <outputVariables>
+                <variable formalParameter="ENO">
+                  <connectionPointOut />
+                </variable>
+                <variable formalParameter="">
+                  <connectionPointOut>
+                    <expression>GVL_Temp.SimTemp</expression>
+                  </connectionPointOut>
+                </variable>
+              </outputVariables>
+            </block>
+            <comment localId="62" height="0" width="0">
+              <position x="0" y="0" />
+              <content>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </content>
+            </comment>
+            <vendorElement localId="61">
+              <position x="0" y="0" />
+              <alternativeText>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </alternativeText>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/fbdelementtype" handleUnknown="implementation">
+                  <ElementType xmlns="">networktitle</ElementType>
+                </data>
+              </addData>
+            </vendorElement>
+            <contact localId="63">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="0" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>TRUE</variable>
+            </contact>
+            <inVariable localId="65">
+              <position x="0" y="0" />
+              <connectionPointOut />
+              <expression>GVL_Temp.SimTemp</expression>
+            </inVariable>
+            <block localId="64" typeName="MOVE">
+              <position x="0" y="0" />
+              <inputVariables>
+                <variable formalParameter="EN">
+                  <connectionPointIn>
+                    <connection refLocalId="63" />
+                  </connectionPointIn>
+                </variable>
+                <variable formalParameter="">
+                  <connectionPointIn>
+                    <connection refLocalId="65" />
+                  </connectionPointIn>
+                </variable>
+              </inputVariables>
+              <inOutVariables />
+              <outputVariables>
+                <variable formalParameter="ENO">
+                  <connectionPointOut />
+                </variable>
+                <variable formalParameter="">
+                  <connectionPointOut>
+                    <expression>GVL_Temp.CurrentTemp</expression>
+                  </connectionPointOut>
+                </variable>
+              </outputVariables>
+            </block>
+            <comment localId="69" height="0" width="0">
+              <position x="0" y="0" />
+              <content>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </content>
+            </comment>
+            <vendorElement localId="68">
+              <position x="0" y="0" />
+              <alternativeText>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </alternativeText>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/fbdelementtype" handleUnknown="implementation">
+                  <ElementType xmlns="">networktitle</ElementType>
+                </data>
+              </addData>
+            </vendorElement>
+            <contact localId="70">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="0" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>TRUE</variable>
+            </contact>
+            <inVariable localId="72">
+              <position x="0" y="0" />
+              <connectionPointOut />
+              <expression>GVL_Temp.Setpoint</expression>
+            </inVariable>
+            <inVariable localId="73">
+              <position x="0" y="0" />
+              <connectionPointOut />
+              <expression>1.0</expression>
+            </inVariable>
+            <block localId="71" typeName="SUB">
+              <position x="0" y="0" />
+              <inputVariables>
+                <variable formalParameter="EN">
+                  <connectionPointIn>
+                    <connection refLocalId="70" />
+                  </connectionPointIn>
+                </variable>
+                <variable formalParameter="">
+                  <connectionPointIn>
+                    <connection refLocalId="72" />
+                  </connectionPointIn>
+                </variable>
+                <variable formalParameter="">
+                  <connectionPointIn>
+                    <connection refLocalId="73" />
+                  </connectionPointIn>
+                </variable>
+              </inputVariables>
+              <inOutVariables />
+              <outputVariables>
+                <variable formalParameter="ENO">
+                  <connectionPointOut />
+                </variable>
+                <variable formalParameter="">
+                  <connectionPointOut>
+                    <expression>temp_LowerLimit</expression>
+                  </connectionPointOut>
+                </variable>
+              </outputVariables>
+            </block>
+            <comment localId="77" height="0" width="0">
+              <position x="0" y="0" />
+              <content>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </content>
+            </comment>
+            <vendorElement localId="76">
+              <position x="0" y="0" />
+              <alternativeText>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </alternativeText>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/fbdelementtype" handleUnknown="implementation">
+                  <ElementType xmlns="">networktitle</ElementType>
+                </data>
+              </addData>
+            </vendorElement>
+            <contact localId="78">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="0" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>TRUE</variable>
+            </contact>
+            <inVariable localId="80">
+              <position x="0" y="0" />
+              <connectionPointOut />
+              <expression>GVL_Temp.Setpoint</expression>
+            </inVariable>
+            <inVariable localId="81">
+              <position x="0" y="0" />
+              <connectionPointOut />
+              <expression>1.0</expression>
+            </inVariable>
+            <block localId="79" typeName="ADD">
+              <position x="0" y="0" />
+              <inputVariables>
+                <variable formalParameter="EN">
+                  <connectionPointIn>
+                    <connection refLocalId="78" />
+                  </connectionPointIn>
+                </variable>
+                <variable formalParameter="">
+                  <connectionPointIn>
+                    <connection refLocalId="80" />
+                  </connectionPointIn>
+                </variable>
+                <variable formalParameter="">
+                  <connectionPointIn>
+                    <connection refLocalId="81" />
+                  </connectionPointIn>
+                </variable>
+              </inputVariables>
+              <inOutVariables />
+              <outputVariables>
+                <variable formalParameter="ENO">
+                  <connectionPointOut />
+                </variable>
+                <variable formalParameter="">
+                  <connectionPointOut>
+                    <expression>temp_UpperLimit</expression>
+                  </connectionPointOut>
+                </variable>
+              </outputVariables>
+            </block>
+            <comment localId="85" height="0" width="0">
+              <position x="0" y="0" />
+              <content>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </content>
+            </comment>
+            <vendorElement localId="84">
+              <position x="0" y="0" />
+              <alternativeText>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </alternativeText>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/fbdelementtype" handleUnknown="implementation">
+                  <ElementType xmlns="">networktitle</ElementType>
+                </data>
+              </addData>
+            </vendorElement>
+            <contact localId="86">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="0" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>TRUE</variable>
+            </contact>
+            <inVariable localId="88">
+              <position x="0" y="0" />
+              <connectionPointOut />
+              <expression>GVL_Temp.CurrentTemp</expression>
+            </inVariable>
+            <inVariable localId="89">
+              <position x="0" y="0" />
+              <connectionPointOut />
+              <expression>temp_LowerLimit</expression>
+            </inVariable>
+            <block localId="87" typeName="LT">
+              <position x="0" y="0" />
+              <inputVariables>
+                <variable formalParameter="EN">
+                  <connectionPointIn>
+                    <connection refLocalId="86" />
+                  </connectionPointIn>
+                </variable>
+                <variable formalParameter="">
+                  <connectionPointIn>
+                    <connection refLocalId="88" />
+                  </connectionPointIn>
+                </variable>
+                <variable formalParameter="">
+                  <connectionPointIn>
+                    <connection refLocalId="89" />
+                  </connectionPointIn>
+                </variable>
+              </inputVariables>
+              <inOutVariables />
+              <outputVariables>
+                <variable formalParameter="ENO">
+                  <connectionPointOut />
+                </variable>
+                <variable formalParameter="">
+                  <connectionPointOut>
+                    <expression>temp_SetCond</expression>
+                  </connectionPointOut>
+                </variable>
+              </outputVariables>
+            </block>
+            <comment localId="93" height="0" width="0">
+              <position x="0" y="0" />
+              <content>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </content>
+            </comment>
+            <vendorElement localId="92">
+              <position x="0" y="0" />
+              <alternativeText>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </alternativeText>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/fbdelementtype" handleUnknown="implementation">
+                  <ElementType xmlns="">networktitle</ElementType>
+                </data>
+              </addData>
+            </vendorElement>
+            <contact localId="94">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="0" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>TRUE</variable>
+            </contact>
+            <inVariable localId="96">
+              <position x="0" y="0" />
+              <connectionPointOut />
+              <expression>GVL_Temp.CurrentTemp</expression>
+            </inVariable>
+            <inVariable localId="97">
+              <position x="0" y="0" />
+              <connectionPointOut />
+              <expression>temp_UpperLimit</expression>
+            </inVariable>
+            <block localId="95" typeName="GT">
+              <position x="0" y="0" />
+              <inputVariables>
+                <variable formalParameter="EN">
+                  <connectionPointIn>
+                    <connection refLocalId="94" />
+                  </connectionPointIn>
+                </variable>
+                <variable formalParameter="">
+                  <connectionPointIn>
+                    <connection refLocalId="96" />
+                  </connectionPointIn>
+                </variable>
+                <variable formalParameter="">
+                  <connectionPointIn>
+                    <connection refLocalId="97" />
+                  </connectionPointIn>
+                </variable>
+              </inputVariables>
+              <inOutVariables />
+              <outputVariables>
+                <variable formalParameter="ENO">
+                  <connectionPointOut />
+                </variable>
+                <variable formalParameter="">
+                  <connectionPointOut>
+                    <expression>temp_ResetCond</expression>
+                  </connectionPointOut>
+                </variable>
+              </outputVariables>
+            </block>
+            <comment localId="101" height="0" width="0">
+              <position x="0" y="0" />
+              <content>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </content>
+            </comment>
+            <vendorElement localId="100">
+              <position x="0" y="0" />
+              <alternativeText>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </alternativeText>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/fbdelementtype" handleUnknown="implementation">
+                  <ElementType xmlns="">networktitle</ElementType>
+                </data>
+              </addData>
+            </vendorElement>
+            <contact localId="102">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="0" />
+              </connectionPointIn>
+              <connectionPointOut />
+              <variable>TRUE</variable>
+            </contact>
+            <inVariable localId="104">
+              <position x="0" y="0" />
+              <connectionPointOut />
+              <expression>temp_SetCond</expression>
+            </inVariable>
+            <inVariable localId="105">
+              <position x="0" y="0" />
+              <connectionPointOut />
+              <expression>temp_ResetCond</expression>
+            </inVariable>
+            <block localId="103" typeName="RS" instanceName="RS_HeatControl">
+              <position x="0" y="0" />
+              <inputVariables>
+                <variable formalParameter="EN">
+                  <connectionPointIn>
+                    <connection refLocalId="102" />
+                  </connectionPointIn>
+                </variable>
+                <variable formalParameter="SET">
+                  <connectionPointIn>
+                    <connection refLocalId="104" />
+                  </connectionPointIn>
+                </variable>
+                <variable formalParameter="RESET1">
+                  <connectionPointIn>
+                    <connection refLocalId="105" />
+                  </connectionPointIn>
+                </variable>
+              </inputVariables>
+              <inOutVariables />
+              <outputVariables>
+                <variable formalParameter="ENO">
+                  <connectionPointOut />
+                </variable>
+                <variable formalParameter="Q1">
+                  <connectionPointOut>
+                    <expression>GVL_Temp.HeatOutput</expression>
+                  </connectionPointOut>
+                </variable>
+              </outputVariables>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
+                  <CallType xmlns="">functionblock</CallType>
+                </data>
+              </addData>
+            </block>
+            <rightPowerRail localId="2147483647">
+              <position x="0" y="0" />
+              <connectionPointIn />
+            </rightPowerRail>
+          </LD>
+        </body>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>45df5e26-08da-4ee7-bb7b-925f58c11038</ObjectId>
+          </data>
+        </addData>
+      </pou>
+    </pous>
+  </types>
+  <instances>
+    <configurations />
+  </instances>
+  <addData>
+    <data name="http://www.3s-software.com/plcopenxml/projectstructure" handleUnknown="discard">
+      <ProjectStructure>
+        <Object Name="PLC_PRG_LD" ObjectId="45df5e26-08da-4ee7-bb7b-925f58c11038" />
+      </ProjectStructure>
+    </data>
+  </addData>
+</project>
