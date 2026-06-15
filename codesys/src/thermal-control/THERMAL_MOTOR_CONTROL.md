@@ -1,4 +1,3 @@
-```markdown
 # AHU Control Project – Motor & Temperature Logic
 
 This project implements two independent control systems in **CODESYS V3** using **Structured Text (ST)** and **Ladder Diagram (LD)**:
@@ -303,7 +302,7 @@ Rung 12 calculates the upper threshold (`Setpoint + 1.0`). Rung 13 performs the 
 5. Monitor variables:
 
    - Toggle `StartCmd` to run the motor; `StopCmd`, `EStop`, or `OverloadTrip` will stop it.
-   
+
    - Observe `CurrentTemp` slowly oscillating around `22.0°C` while `HeatOutput` toggles.
 
 To adjust the simulation speed, change the deltas in Rungs 7 and 8 (currently `0.001` and `0.0006`) according to your cycle time.
