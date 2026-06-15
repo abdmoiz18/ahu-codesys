@@ -3,6 +3,7 @@
 This project implements two independent control systems in **CODESYS V3** using **Structured Text (ST)** and **Ladder Diagram (LD)**:
 
 - A **motor seal‑in circuit** with overload latch and emergency stop.
+
 - A **temperature simulation** with hysteresis (on/off) control.
 
 The repository documents the ST‑to‑LD conversion process, common pitfalls, and the final working LD implementation.
@@ -12,17 +13,29 @@ The repository documents the ST‑to‑LD conversion process, common pitfalls, a
 ## Table of Contents
 
 1. [System Overview](#system-overview)
+
 2. [Motor Control Logic](#motor-control-logic)
+
    - Structured Text (original)
+
    - Ladder Diagram implementation
+
    - Truth tables
+
    - Errors and solutions
+
 3. [Temperature Control Logic](#temperature-control-logic)
+
    - Structured Text (original)
+
    - Ladder Diagram implementation
+
    - Truth table (hysteresis)
+
    - Errors and solutions
+
 4. [Screenshots](#screenshots)
+
 5. [How to Use](#how-to-use)
 
 ---
