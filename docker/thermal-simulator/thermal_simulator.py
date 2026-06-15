@@ -28,7 +28,7 @@ while True:
         "current_temp": round(current_temp, 2),
         "setpoint": setpoint,
         "heat_output": heat_output,
-        "timestamp": int(time.time()),
+        "timestamp": int(time.time())
     }
 
     client.publish("ahu/temperature/status", json.dumps(payload))
