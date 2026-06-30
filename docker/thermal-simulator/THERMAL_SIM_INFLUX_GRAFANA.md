@@ -1,4 +1,3 @@
-```markdown
 # AHU Homelab – Docker Services for Thermal Simulation and Data Pipeline
 
 This part of the project implements a complete data pipeline:
@@ -10,38 +9,6 @@ This part of the project implements a complete data pipeline:
 - **Grafana** visualises the temperature oscillation and heater state.
 
 The pipeline demonstrates how a BAS (Building Automation System) supervisory platform collects, stores, and visualises field device data – exactly what a real Niagara or SCADA system does.
-
----
-
-## Prerequisites
-
-- Raspberry Pi (or any Linux host) with Docker and Docker Compose installed.
-- Your user added to the `docker` group, or use `sudo` for all commands.
-- Basic understanding of MQTT, Docker, and Grafana.
-
----
-
-## Directory Structure (within `docker/`)
-
-```
-docker/
-├── docker-compose.yml
-├── .env                         # environment variables (secrets, not committed)
-├── mosquitto/
-│   └── config/
-│       └── mosquitto.conf       # MQTT broker config (listener 1883, anonymous)
-├── motor-simulator/
-│   ├── Dockerfile
-│   └── motor_simulator.py       # publishes MotorOut every second
-├── thermal-simulator/
-│   ├── Dockerfile
-│   └── thermal_simulator.py     # publishes temperature with hysteresis
-├── mqtt-influx-bridge/
-│   ├── Dockerfile
-│   └── bridge.py                # subscribes to ahu/# and writes to InfluxDB
-└── scripts/
-    └── startup.sh               # one‑command startup with health checks
-```
 
 ---
 
