@@ -1,3 +1,8 @@
+(* Smoke alarm latch - stays active until manually reset *)
+GVL_Smoke.SmokeAlarmMem := (GVL_Smoke.SmokeDetected OR GVL_Smoke.SmokeAlarmMem) AND NOT GVL_Smoke.ResetSmoke;
+
+(* Smoke Alarm Output *)
+GVL_Smoke.SmokeAlarm := GVL_Smoke.SmokeAlarmMem;
 
 (* ===================
    Motor seal-in logic 
@@ -39,18 +44,36 @@ GVL_Temp.CurrentTemp := GVL_Temp.SimTemp;
 (* Heat ON when temp falls below setpoint minus deadband *)
 (* Heat OFF when temp rises above setpoint plus deadband *)
 
-IF GVL_Temp.CurrentTemp < (GVL_Temp.Setpoint - 1.0) THEN
+IF GVL_Smoke.SmokeAlarmMem THEN
+    GVL_Temp.HeatOutput := FALSE;   // Smoke overrides
+ELSIF GVL_Temp.CurrentTemp < (GVL_Temp.Setpoint - 1.0) THEN
 	GVL_Temp.HeatOutput := TRUE;
 ELSIF GVL_Temp.CurrentTemp > (GVL_Temp.Setpoint + 1.0) THEN
 	GVL_Temp.HeatOutput := FALSE;
 END_IF
 
-(* Fan Proof Check *)
+(* ===============
+   Fan Proof Check 
+   =============== *)
 
 GVL_Fan.FanProofTimer(IN := GVL.MotorOut AND NOT GVL_Fan.FanProofSignal, PT := T#5S);
 
 IF GVL_Fan.FanProofTimer.Q THEN
 	GVL_Fan.FanFaultAlarm := TRUE;
+END_IF
+
+(* ======================
+   Smoke Safety Interlock 
+   ====================== *)
+(* Because safety takes priority over process control, smoke alarm must override motor and heating inputs *)
+
+(* Safety override - shut down all outputs on smoke alarm *)
+(* This modifies outputs set by earlier logic sections *)
+
+IF GVL_Smoke.SmokeAlarmMem THEN
+	GVL.MotorInternal := FALSE;
+	GVL.MotorOut := FALSE;
+	GVL_Temp.HeatOutput := FALSE;
 END_IF
 
 
