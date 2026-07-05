@@ -23,7 +23,15 @@ IF GVL.OverloadMem THEN
 	GVL.MotorInternal := FALSE;
 END_IF
 
-(* In Codesys, this is added right after motor seal-in logic *)
+(* ===============
+   Fan Proof Check 
+   =============== *)
+
+GVL_Fan.FanProofTimer(IN := GVL.MotorOut AND NOT GVL_Fan.FanProofSignal, PT := T#5S);
+
+IF GVL_Fan.FanProofTimer.Q THEN
+	GVL_Fan.FanFaultAlarm := TRUE;
+END_IF
 
 (* =========================
    Temperature Control Logic
@@ -51,29 +59,4 @@ ELSIF GVL_Temp.CurrentTemp < (GVL_Temp.Setpoint - 1.0) THEN
 ELSIF GVL_Temp.CurrentTemp > (GVL_Temp.Setpoint + 1.0) THEN
 	GVL_Temp.HeatOutput := FALSE;
 END_IF
-
-(* ===============
-   Fan Proof Check 
-   =============== *)
-
-GVL_Fan.FanProofTimer(IN := GVL.MotorOut AND NOT GVL_Fan.FanProofSignal, PT := T#5S);
-
-IF GVL_Fan.FanProofTimer.Q THEN
-	GVL_Fan.FanFaultAlarm := TRUE;
-END_IF
-
-(* ======================
-   Smoke Safety Interlock 
-   ====================== *)
-(* Because safety takes priority over process control, smoke alarm must override motor and heating inputs *)
-
-(* Safety override - shut down all outputs on smoke alarm *)
-(* This modifies outputs set by earlier logic sections *)
-
-IF GVL_Smoke.SmokeAlarmMem THEN
-	GVL.MotorInternal := FALSE;
-	GVL.MotorOut := FALSE;
-	GVL_Temp.HeatOutput := FALSE;
-END_IF
-
 
