@@ -40,10 +40,13 @@ END_IF
 (* In this simulation, temperature rises when heating and falls when it isn't, no active cooling *)
 (* PLC Cycle is approximately 10 ms, adjust accordingly *)
 
-IF GVL_Temp.HeatOutput THEN
-	GVL_Temp.SimTemp := GVL_Temp.SimTemp + 0.001;
-ELSE
-	GVL_Temp.SimTemp := GVL_Temp.SimTemp - 0.0006;
+IF NOT GVL_Smoke.SmokeAlarmMem THEN
+    (* Only run simulation if no smoke *)
+    IF GVL_Temp.HeatOutput THEN
+        GVL_Temp.SimTemp := GVL_Temp.SimTemp + 0.001;
+    ELSE
+        GVL_Temp.SimTemp := GVL_Temp.SimTemp - 0.0006;
+    END_IF
 END_IF
 
 GVL_Temp.CurrentTemp := GVL_Temp.SimTemp;
@@ -59,4 +62,3 @@ ELSIF GVL_Temp.CurrentTemp < (GVL_Temp.Setpoint - 1.0) THEN
 ELSIF GVL_Temp.CurrentTemp > (GVL_Temp.Setpoint + 1.0) THEN
 	GVL_Temp.HeatOutput := FALSE;
 END_IF
-
