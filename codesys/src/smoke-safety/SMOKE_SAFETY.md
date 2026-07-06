@@ -496,9 +496,3 @@ This smoke safety interlock implementation demonstrates:
 - CurrentTemp update (MOVE block)
 
 ---
-
-**Author:** PLC Programmer  
-**Date:** 2026-07-06  
-**CODESYS Version:** V3.5 SP18  
-**Project:** HVAC Control with Smoke Safety Interlock
-```
