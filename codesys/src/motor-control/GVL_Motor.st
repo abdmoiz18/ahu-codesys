@@ -1,8 +1,7 @@
 {attribute 'qualified_only'}
-(* This attribute forces the use of prefix GVL. in the implementation part of the POU *)
 VAR_GLOBAL
     (* Inputs - Commands from HMI *)
-    StartCmd AT %QX0.0        : BOOL;
+	StartCmd AT %QX0.0        : BOOL;
     StopCmd AT %QX0.1         : BOOL;
     ResetCmd AT %QX0.2        : BOOL;
     EStop AT %QX0.3           : BOOL;
@@ -15,4 +14,8 @@ VAR_GLOBAL
     (* Outputs - Status to HMI *)
     MotorOut AT %QX0.5     : BOOL;
     OverloadAlarm AT %QX0.6   : BOOL;
+	
+	(* Motor Start Counter *)
+	StartCounter : CTU;
+	MotorOutRising : R_TRIG;
 END_VAR
