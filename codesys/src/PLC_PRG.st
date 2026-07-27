@@ -1,4 +1,6 @@
-(* Smoke alarm latch - stays active until manually reset *)
+(*  =====================================================
+    Smoke alarm latch - stays active until manually reset 
+    ===================================================== *)
 GVL_Smoke.SmokeAlarmMem := (GVL_Smoke.SmokeDetected OR GVL_Smoke.SmokeAlarmMem) AND NOT GVL_Smoke.ResetSmoke;
 
 (* Smoke Alarm Output *)
@@ -51,7 +53,9 @@ END_IF
 
 GVL_Temp.CurrentTemp := GVL_Temp.SimTemp;
 
-(* Hysteresis on/off Control *)
+(*  =========================
+    Hysteresis on/off Control 
+    ========================= *)
 (* Heat ON when temp falls below setpoint minus deadband *)
 (* Heat OFF when temp rises above setpoint plus deadband *)
 
@@ -62,3 +66,4 @@ ELSIF GVL_Temp.CurrentTemp < (GVL_Temp.Setpoint - 1.0) THEN
 ELSIF GVL_Temp.CurrentTemp > (GVL_Temp.Setpoint + 1.0) THEN
 	GVL_Temp.HeatOutput := FALSE;
 END_IF
+
