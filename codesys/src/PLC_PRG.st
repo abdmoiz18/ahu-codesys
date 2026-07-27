@@ -76,3 +76,39 @@ ELSIF GVL_Temp.CurrentTemp < (GVL_Temp.Setpoint - 1.0) THEN
 ELSIF GVL_Temp.CurrentTemp > (GVL_Temp.Setpoint + 1.0) THEN
 	GVL_Temp.HeatOutput := FALSE;
 END_IF
+
+(* ===========================
+   Freeze Protection Detection
+   =========================== *)
+
+(* If air temp drops below 5 C, latch the freeze alarm *)
+IF GVL_Temp.CurrentTemp < 5.0 THEN
+	GVL_Temp.FreezeAlarmMem := TRUE;
+END_IF
+
+(* Output to HMI *)
+GVL_Temp.FreezeAlarm := GVL_Temp.FreezeAlarmMem;
+
+(* =====================================
+   ALARM TEXT PRIORITISATION
+   ===================================== *)
+(* Highest priority first *)
+IF GVL_Temp.FreezeAlarmMem THEN
+    GVL_Temp.AlarmText := 'FREEZE PROTECTION - SYSTEM SHUTDOWN';
+ELSIF GVL_Smoke.SmokeAlarmMem THEN
+    GVL_Temp.AlarmText := 'SMOKE ALARM - SYSTEM SHUTDOWN';
+ELSIF GVL.OverloadAlarm THEN
+    GVL_Temp.AlarmText := 'OVERLOAD TRIPPED - MOTOR OFF';
+ELSE
+    GVL_Temp.AlarmText := 'NORMAL OPERATION';
+END_IF
+
+(* =====================================
+   SAFETY OVERRIDE (Smoke + Freeze + EStop)
+   ===================================== *)
+(* Shut down ALL outputs if any safety condition is active *)
+IF GVL_Smoke.SmokeAlarmMem OR GVL_Temp.FreezeAlarmMem OR GVL.EStop THEN
+    GVL.MotorInternal := FALSE;     (* Break seal-in *)
+    GVL.MotorOut := FALSE;          (* Stop motor *)
+    GVL_Temp.HeatOutput := FALSE;   (* Turn off heating *)
+END_IF
