@@ -16,6 +16,8 @@ VAR_GLOBAL
     OverloadAlarm AT %QX0.6   : BOOL;
 	
 	(* Motor Start Counter *)
+	MotorStartCount : WORD;
+	ResetCounterCmd : BOOL;
 	StartCounter : CTU;
 	MotorOutRising : R_TRIG;
 END_VAR
