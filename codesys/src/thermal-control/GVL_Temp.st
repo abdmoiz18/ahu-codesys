@@ -10,5 +10,11 @@ VAR_GLOBAL
 	(*Internal Simulation *)
 	SimTemp : REAL := 20.0;
 	LastCycleTime : REAL;
+	
+	(* Freeze Protection *)
+	FreezeAlarmMem : BOOL;
+	FreezeAlarm : BOOL;
+	CoolingOutput : BOOL;
+	FanSpeed : REAL;
+	AlarmText : STRING := 'NORMAL OPERATION';
 END_VAR
-
