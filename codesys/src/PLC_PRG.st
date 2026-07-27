@@ -25,6 +25,16 @@ IF GVL.OverloadMem THEN
 	GVL.MotorInternal := FALSE;
 END_IF
 
+(* ===================
+   Motor Start Counter 
+   =================== *)
+
+GVL.MotorOutRising(CLK := GVL.MotorOut);
+GVL.StartCounter(CU := GVL.MotorOutRising.Q,
+	             RESET := GVL.ResetCounterCmd,
+				 PV := 9999);
+GVL.MotorStartCount := GVL.StartCounter.CV;
+
 (* ===============
    Fan Proof Check 
    =============== *)
@@ -66,4 +76,3 @@ ELSIF GVL_Temp.CurrentTemp < (GVL_Temp.Setpoint - 1.0) THEN
 ELSIF GVL_Temp.CurrentTemp > (GVL_Temp.Setpoint + 1.0) THEN
 	GVL_Temp.HeatOutput := FALSE;
 END_IF
-
