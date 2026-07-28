@@ -1,109 +1,145 @@
 # AHU Industrial Automation Lab  
-**CODESYS + MQTT + InfluxDB + Grafana + Python Simulation**
+**CODESYS + MQTT + InfluxDB + Grafana**
 
-This project is an industrial automation portfolio lab that simulates core **Air Handling Unit (AHU)** control behavior and OT telemetry flow.
+This repository is an industrial automation portfolio project that simulates core **Air Handling Unit (AHU)** control and supervisory telemetry behavior.
 
 It demonstrates:
-- PLC control logic implementation in **CODESYS** (ST/LD)
-- Simulated field device telemetry via **MQTT**
-- Time-series ingestion into **InfluxDB**
-- Real-time visualization in **Grafana**
-- Engineering validation through commissioning-style tests and packet analysis
+- PLC control development in **CODESYS** (Structured Text + Ladder Diagram)
+- Field-device simulation and messaging via **Python + MQTT**
+- Time-series ingestion and visualization using **InfluxDB + Grafana**
+- Alarm-oriented control design including **Freeze Alarm**, **Smoke Alarm**, **Fan Proof**, and **alarm priority handling**
+
+---
+
+## Project Highlights
+
+### PLC Control Logic (CODESYS)
+- Motor start/stop seal-in logic
+- Overload latch and reset handling
+- Emergency stop override
+- **Smoke alarm latch** with manual reset
+- **Freeze Alarm** logic (latched when `CurrentTemp < 5.0°C`)
+- **Motor Start Counter (Structured Text)** using rising-edge detection and CTU
+- Fan proof timeout detection using TON timer
+- **Alarm text prioritization** (Freeze > Smoke > Overload > Normal)
+- **Safety override** that shuts down outputs on Smoke, Freeze, or E-Stop
+
+### Ladder Diagram Safety/Alarm Layer
+- Freeze alarm integration in LD
+- Smoke alarm and fan fault alarm handling
+- Overload alarm handling
+- **Alarm Priority Logic in LD** to enforce deterministic alarm behavior when multiple alarms are active
+
+### OT Telemetry Pipeline
+- Python simulators publish AHU-like process values/status to MQTT
+- MQTT broker (Mosquitto) as central message bus
+- MQTT-to-InfluxDB bridge for historical storage
+- Grafana dashboards for live and trend visualization
 
 ---
 
 ## Why this project is relevant
 
-This repository is built to showcase practical skills for industrial automation and controls roles:
-- Control logic design (latching, interlocks, fail-safe behavior)
-- BAS-style data flow from controller/simulator to supervisory monitoring
-- OT/IT integration using lightweight industrial messaging
-- Structured testing, troubleshooting, and technical documentation
+This project is designed to showcase practical skills expected in controls/automation and OT-integrated roles:
+
+- PLC programming (ST + LD)
+- Safety/interlock and alarm design
+- Field telemetry simulation
+- Industrial protocol workflow validation
+- Data-driven supervisory monitoring integration
 
 ---
 
-## System Architecture
+## Architecture Overview
 
-**Control Layer**
-- CODESYS runtime on Raspberry Pi
-- Motor control, alarm latching, safety interlocks, thermal/smoke-related logic
-
-**Telemetry Layer**
-- Python simulators publish AHU-like process values/status to MQTT topics
-- MQTT broker (Mosquitto) acts as central message bus
-
-**Data & Visualization Layer**
-- MQTT-to-InfluxDB bridge writes topic payloads as time-series points
-- Grafana dashboards display live and historical behavior
+1. **Control Layer:** CODESYS runtime executes AHU logic (motor, freeze protection, smoke safety, fan proof, alarm priority, and safety overrides).
+2. **Field Simulation Layer:** Python-based simulators emulate AHU device signals.
+3. **Messaging Layer:** MQTT transports telemetry/events.
+4. **Data Layer:** InfluxDB stores time-series data.
+5. **Visualization Layer:** Grafana displays system behavior and alarm trends.
 
 ---
 
 ## Tech Stack
 
-- **PLC/Automation:** CODESYS (Structured Text + Ladder)
+- **PLC/Automation:** CODESYS (Structured Text, Ladder Diagram)
 - **Messaging:** Eclipse Mosquitto (MQTT)
 - **Data Historian:** InfluxDB 2.x
 - **Visualization:** Grafana
-- **Simulation & Integration:** Python (`paho-mqtt`, `influxdb-client`)
-- **Environment:** Docker Compose, Raspberry Pi, Linux shell tooling
-- **Validation:** Wireshark / dumpcap packet capture analysis
+- **Simulation/Glue:** Python (`paho-mqtt`, `influxdb-client`)
+- **Runtime/Orchestration:** Docker Compose, Shell scripts
+- **Platform:** Raspberry Pi + Linux environment
 
 ---
 
-## Key Implementations
+## New Additions (Current Revision)
 
-- Motor seal-in logic with stop, overload trip, and reset handling
-- Fan proof monitoring with TON-based timeout fault detection
-- Smoke safety interlock with latched alarm and manual reset
-- Thermal simulation with hysteresis-like control behavior
-- End-to-end MQTT → InfluxDB → Grafana telemetry pipeline
-- Startup automation and health-check flow for containerized services
+- ✅ **Freeze Alarm** added to control logic and integrated into alarm behavior  
+- ✅ **Motor Start Counter (ST)** added for operational event tracking  
+- ✅ **Alarm Priority in ST/LD** implemented to prioritize alarm outcomes consistently during concurrent conditions  
+- ✅ **Safety override** enforces shutdown when any critical safety condition is active (`SmokeAlarmMem OR FreezeAlarmMem OR EStop`)
 
 ---
 
-## Quick Start (Docker Pipeline)
+## Control & Alarm Priority (from `PLC_PRG.st`)
+
+Priority order:
+1. **FREEZE PROTECTION - SYSTEM SHUTDOWN**
+2. **SMOKE ALARM - SYSTEM SHUTDOWN**
+3. **OVERLOAD TRIPPED - MOTOR OFF**
+4. **NORMAL OPERATION**
+
+Safety shutdown action (if Freeze OR Smoke OR E-Stop):
+- `MotorInternal := FALSE`
+- `MotorOut := FALSE`
+- `HeatOutput := FALSE`
+
+---
+
+## Quick Start (Docker Telemetry Stack)
 
 ```bash
 cd docker
-cp .env.example .env   # if not present, create .env manually
+cp .env.example .env   # create manually if not yet present
 docker compose up -d
 ```
 
-Then access:
+Access:
 - Grafana: `http://localhost:3000`
 - InfluxDB: `http://localhost:8086`
-- MQTT broker: `localhost:1883`
+- MQTT Broker: `localhost:1883`
 
-> For Raspberry Pi deployment, replace `localhost` with `<RPi-IP>` where applicable.
+> For Raspberry Pi deployment, replace `localhost` with `<RPi-IP>`.
+
+---
+
+## Validation & Engineering Evidence
+
+This repository includes commissioning-style evidence and test-focused documentation, such as:
+- Motor control commissioning logs
+- Fan proof verification scenarios
+- Smoke/freeze/safety interlock documentation
+- MQTT protocol capture and analysis (Wireshark/dumpcap)
+- Troubleshooting retrospectives and implementation notes
 
 ---
 
 ## Repository Structure (High-Level)
 
 ```text
-codesys/                  # PLC logic, control modules, commissioning docs
-docker/                   # Compose stack, service Dockerfiles, startup script
-scripts/                  # Python simulators and integration scripts
-docs/                     # Architecture, setup, validation, troubleshooting
+codesys/        # PLC logic, LD/ST modules, commissioning docs
+docker/         # Compose stack, service Dockerfiles, startup tooling
+scripts/        # Python simulators and integration scripts
+docs/           # Architecture, setup, validation, troubleshooting
 ```
-
----
-
-## Validation Evidence
-
-This project includes engineering-style evidence, not just source code:
-- Commissioning test logs for motor control behavior
-- Fan proof logic test scenarios and expected outcomes
-- Smoke safety interlock verification workflow
-- MQTT traffic capture and protocol-level analysis (Wireshark/dumpcap)
 
 ---
 
 ## Engineering Notes
 
-- Designed as a **portfolio proof-of-concept**, not production BAS deployment
-- Security/auth hardening is intentionally minimal in homelab mode and should be strengthened for production use
-- Focus is on control behavior, telemetry reliability, and integration clarity
+- This is a homelab/portfolio simulation, not a production-certified BAS deployment.
+- Security and hardening are intentionally simplified for development and demonstration.
+- The focus is on control correctness, alarm behavior, integration clarity, and technical documentation quality.
 
 ---
 
