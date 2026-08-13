@@ -121,3 +121,4 @@ The client would then need to mask the appropriate bit.
 - Map each `GVL_Motor` Boolean to a specific bit of `%QW0` in the I/O Mapping tab of the Modbus server.
 
 - Write a client that reads/writes `%QW0` and masks bits.
+
