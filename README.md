@@ -1,145 +1,23 @@
 # AHU Industrial Automation Lab  
-**CODESYS + MQTT + InfluxDB + Grafana**
 
-This repository is an industrial automation portfolio project that simulates core **Air Handling Unit (AHU)** control and supervisory telemetry behavior.
+This is a GitHub repository to simulate the control system for an Air Handling Unit (AHU) of a medium size building. The Codesys section consists of Motor Seal-in logic, Temperature Hysteresis logic, Freeze Protection, Smoke Alarm Latch, Motor Start Counter, Fan Proof Check, Combined Safety Alarm override, all written and implemented in both Strctured Text (ST) and Ladder Logic (LD).
 
-It demonstrates:
-- PLC control development in **CODESYS** (Structured Text + Ladder Diagram)
-- Field-device simulation and messaging via **Python + MQTT**
-- Time-series ingestion and visualization using **InfluxDB + Grafana**
-- Alarm-oriented control design including **Freeze Alarm**, **Smoke Alarm**, **Fan Proof**, and **alarm priority handling**
+This system was designed for a medium-size mission-critical facility such as a hospital wing, pharmaceutical cleanroom, financial trading floor, etc, where uninterrupted operation is not just a convenience but a necessity and any failure carries critical consequences to life safety, product quality, data integrity, or finances.
 
----
+The Air Handling Unit (AHU) itself is a variable-air volume (VAV) serving a single critical zone. It includes a supply fan with a proof-of-flow sensor, an on/off heating coil, and a smoke detector. It is controlled by a Programmable Logic Controller (PLC) that executes ST or LD logic, ordered to prioritise safety and energy efficiency.
 
-## Project Highlights
+## PLC Logic
 
-### PLC Control Logic (CODESYS)
-- Motor start/stop seal-in logic
-- Overload latch and reset handling
-- Emergency stop override
-- **Smoke alarm latch** with manual reset
-- **Freeze Alarm** logic (latched when `CurrentTemp < 5.0°C`)
-- **Motor Start Counter (Structured Text)** using rising-edge detection and CTU
-- Fan proof timeout detection using TON timer
-- **Alarm text prioritization** (Freeze > Smoke > Overload > Normal)
-- **Safety override** that shuts down outputs on Smoke, Freeze, or E-Stop
+The motor control logic is a 3-wire start/stop with a seal-in, overload protection, and an emergency stop that overrides all other commands. It also has a Motor Start Counter logic to track the number of times the motor has been started, a feature used by facilities teams for predictive maintainence, tracking wear and tear, and scheduling of a replacement.
 
-### Ladder Diagram Safety/Alarm Layer
-- Freeze alarm integration in LD
-- Smoke alarm and fan fault alarm handling
-- Overload alarm handling
-- **Alarm Priority Logic in LD** to enforce deterministic alarm behavior when multiple alarms are active
+The temperature control loop implements hysteresis rather than a full PID, preferable in this scenario for simplicity, reliability, and immunity to tuning drift. The deadband ensures stable temperature control without excessive actuator cycling to prevent wearing out the heating coil and control valve.
 
-### OT Telemetry Pipeline
-- Python simulators publish AHU-like process values/status to MQTT
-- MQTT broker (Mosquitto) as central message bus
-- MQTT-to-InfluxDB bridge for historical storage
-- Grafana dashboards for live and trend visualization
+The safety system has three hazard classes - Smoke, Freeze, and Overload. Freeze Protection carries the highest priority to prevent rupturing of the coil, which may cause catastrophic water damage. Smoke detection comes next, triggering an immediate system shutdown and requiring a manual reset as per fire codes. Overload protection comes last, preventing motor damage. The alarm text logic provides clear, human-readable status to the operator.
 
----
+The fan proof timer is an interlock, where a fan must prove airflow within five seconds of being commanded to run, otherwise a fault alarm is generated. This is to prevent the heating coil to operate without airflow, which is a common cause of overheating and fire.
 
-## Why this project is relevant
+## Ignition SCADA Addition
 
-This project is designed to showcase practical skills expected in controls/automation and OT-integrated roles:
+The system is designed to be operated by a modern SCADA interface (Ignition) to replace the manual forcing of variables during development. The OPC UA connection provides secure, standarised communication between the PLC and the HMI, and the alarm summary and the trend historian gives operators the tools they need to monitor, diagnose, and respond to events.
 
-- PLC programming (ST + LD)
-- Safety/interlock and alarm design
-- Field telemetry simulation
-- Industrial protocol workflow validation
-- Data-driven supervisory monitoring integration
-
----
-
-## Architecture Overview
-
-1. **Control Layer:** CODESYS runtime executes AHU logic (motor, freeze protection, smoke safety, fan proof, alarm priority, and safety overrides).
-2. **Field Simulation Layer:** Python-based simulators emulate AHU device signals.
-3. **Messaging Layer:** MQTT transports telemetry/events.
-4. **Data Layer:** InfluxDB stores time-series data.
-5. **Visualization Layer:** Grafana displays system behavior and alarm trends.
-
----
-
-## Tech Stack
-
-- **PLC/Automation:** CODESYS (Structured Text, Ladder Diagram)
-- **Messaging:** Eclipse Mosquitto (MQTT)
-- **Data Historian:** InfluxDB 2.x
-- **Visualization:** Grafana
-- **Simulation/Glue:** Python (`paho-mqtt`, `influxdb-client`)
-- **Runtime/Orchestration:** Docker Compose, Shell scripts
-- **Platform:** Raspberry Pi + Linux environment
-
----
-
-## New Additions (Current Revision)
-
-- ✅ **Freeze Alarm** added to control logic and integrated into alarm behavior  
-- ✅ **Motor Start Counter (ST)** added for operational event tracking  
-- ✅ **Alarm Priority in ST/LD** implemented to prioritize alarm outcomes consistently during concurrent conditions  
-- ✅ **Safety override** enforces shutdown when any critical safety condition is active (`SmokeAlarmMem OR FreezeAlarmMem OR EStop`)
-
----
-
-## Control & Alarm Priority (from `PLC_PRG.st`)
-
-Priority order:
-1. **FREEZE PROTECTION - SYSTEM SHUTDOWN**
-2. **SMOKE ALARM - SYSTEM SHUTDOWN**
-3. **OVERLOAD TRIPPED - MOTOR OFF**
-4. **NORMAL OPERATION**
-
-Safety shutdown action (if Freeze OR Smoke OR E-Stop):
-- `MotorInternal := FALSE`
-- `MotorOut := FALSE`
-- `HeatOutput := FALSE`
-
----
-
-## Quick Start (Docker Telemetry Stack)
-
-```bash
-cd docker
-cp .env.example .env   # create manually if not yet present
-docker compose up -d
-```
-
-Access:
-- Grafana: `http://localhost:3000`
-- InfluxDB: `http://localhost:8086`
-- MQTT Broker: `localhost:1883`
-
-> For Raspberry Pi deployment, replace `localhost` with `<RPi-IP>`.
-
----
-
-## Validation & Engineering Evidence
-
-This repository includes commissioning-style evidence and test-focused documentation, such as:
-- Motor control commissioning logs
-- Fan proof verification scenarios
-- Smoke/freeze/safety interlock documentation
-- MQTT protocol capture and analysis (Wireshark/dumpcap)
-- Troubleshooting retrospectives and implementation notes
-
----
-
-## Repository Structure (High-Level)
-
-```text
-codesys/        # PLC logic, LD/ST modules, commissioning docs
-docker/         # Compose stack, service Dockerfiles, startup tooling
-scripts/        # Python simulators and integration scripts
-docs/           # Architecture, setup, validation, troubleshooting
-```
-
----
-
-## Engineering Notes
-
-- This is a homelab/portfolio simulation, not a production-certified BAS deployment.
-- Security and hardening are intentionally simplified for development and demonstration.
-- The focus is on control correctness, alarm behavior, integration clarity, and technical documentation quality.
-
----
-
+Until then, the supervisory layer was simulated using open-source tools (Docker, Python, InfluxDB, MQTT, Grafana) to provide a clear understanding of the data pipeline. A Python script simulates the thermal behaviour of the AHU (temperature hysteresis) and sends these values to the MQTT broker every second. An MQTT-to-InfluxDB bridge writes these messages with a time-series database. Grafana is then used to visualise temperature on a live dashboard.
