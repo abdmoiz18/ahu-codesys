@@ -1,0 +1,450 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "CoordinateContainer"
+        },
+        "position": {
+          "height": 627,
+          "width": 784,
+          "x": 11,
+          "y": 172
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#808080"
+          }
+        },
+        "type": "ia.container.coord"
+      },
+      {
+        "meta": {
+          "name": "FlexContainer"
+        },
+        "position": {
+          "height": 190,
+          "width": 732,
+          "x": 36.625106033325196,
+          "y": 227.94022680664062
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#D5D5D5"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "meta": {
+          "name": "FlexContainer_0"
+        },
+        "position": {
+          "height": 190,
+          "width": 217,
+          "x": 39,
+          "y": 503
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#D5D5D5"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "meta": {
+          "name": "FlexContainer_1"
+        },
+        "position": {
+          "height": 192,
+          "width": 217,
+          "x": 554,
+          "y": 503
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#D5D5D5"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "meta": {
+          "name": "LedDisplay"
+        },
+        "position": {
+          "height": 72,
+          "width": 168,
+          "x": 578.4661913452148,
+          "y": 543.9606333007813
+        },
+        "propConfig": {
+          "props.value": {
+            "binding": {
+              "config": {
+                "fallbackDelay": 2.5,
+                "mode": "direct",
+                "tagPath": "[default]GVL/MotorStartCount"
+              },
+              "type": "tag"
+            }
+          }
+        },
+        "type": "ia.display.led-display"
+      },
+      {
+        "meta": {
+          "name": "StartCmd Text",
+          "tooltip": {
+            "enabled": true,
+            "text": "Start"
+          }
+        },
+        "position": {
+          "height": 32,
+          "width": 150,
+          "x": 62.321449279785156,
+          "y": 358.9851531982422
+        },
+        "props": {
+          "text": "Start Motor"
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "StopCmd_Text",
+          "tooltip": {
+            "enabled": true,
+            "text": "Stop"
+          }
+        },
+        "position": {
+          "height": 32,
+          "width": 150,
+          "x": 313.6596815490723,
+          "y": 358.92428515625
+        },
+        "props": {
+          "text": "Stop Motor"
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "contextMenu": {
+            "enabled": true
+          },
+          "name": "ResetCmd_Text",
+          "tooltip": {
+            "text": "Reset"
+          }
+        },
+        "position": {
+          "height": 32,
+          "width": 150,
+          "x": 568.6481172180177,
+          "y": 358.88728515625
+        },
+        "props": {
+          "text": "Reset Motor"
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "EStop_Text",
+          "tooltip": {
+            "enabled": true,
+            "text": "Emergency Stop"
+          }
+        },
+        "position": {
+          "height": 32,
+          "width": 150,
+          "x": 62.64144927978516,
+          "y": 641.99
+        },
+        "props": {
+          "text": "Emergency Stop"
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "MotorStart_Text",
+          "tooltip": {
+            "enabled": true,
+            "text": "Motor Start Counter"
+          }
+        },
+        "position": {
+          "height": 32,
+          "width": 150,
+          "x": 578.092392578125,
+          "y": 641.9632360839844
+        },
+        "props": {
+          "text": "Motor Start Counter"
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "MotorOut_Text",
+          "tooltip": {
+            "enabled": true,
+            "text": "Stop"
+          }
+        },
+        "position": {
+          "height": 32,
+          "width": 150,
+          "x": 313.26759268188476,
+          "y": 565.8876578369141
+        },
+        "props": {
+          "text": "Motor Output"
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "OverloadALarm_Text",
+          "tooltip": {
+            "enabled": true,
+            "text": "Stop"
+          }
+        },
+        "position": {
+          "height": 32,
+          "width": 150,
+          "x": 312.86859268188476,
+          "y": 755.89
+        },
+        "props": {
+          "text": "Overload Alarm"
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "ToggleSwitch"
+        },
+        "position": {
+          "height": 65,
+          "width": 127,
+          "x": 84.30513031005859,
+          "y": 267.31478515625
+        },
+        "propConfig": {
+          "props.selected": {
+            "binding": {
+              "config": {
+                "bidirectional": true,
+                "fallbackDelay": 2.5,
+                "mode": "direct",
+                "tagPath": "[default]GVL/StartCmd"
+              },
+              "type": "tag"
+            }
+          }
+        },
+        "props": {
+          "color": {
+            "selected": "#11FA33",
+            "unselected": "#E5E5E5"
+          }
+        },
+        "type": "ia.input.toggle-switch"
+      },
+      {
+        "meta": {
+          "name": "ToggleSwitch_0"
+        },
+        "position": {
+          "height": 65,
+          "width": 127,
+          "x": 313.9558435058594,
+          "y": 267.21478515625
+        },
+        "propConfig": {
+          "props.selected": {
+            "binding": {
+              "config": {
+                "bidirectional": true,
+                "fallbackDelay": 2.5,
+                "mode": "direct",
+                "tagPath": "[default]GVL/StopCmd"
+              },
+              "type": "tag"
+            }
+          }
+        },
+        "props": {
+          "color": {
+            "selected": "#46E92F"
+          }
+        },
+        "type": "ia.input.toggle-switch"
+      },
+      {
+        "meta": {
+          "name": "ToggleSwitch_1"
+        },
+        "position": {
+          "height": 65,
+          "width": 127,
+          "x": 568.9558740234374,
+          "y": 267.11978515625
+        },
+        "propConfig": {
+          "props.selected": {
+            "binding": {
+              "config": {
+                "fallbackDelay": 2.5,
+                "mode": "direct",
+                "tagPath": "[default]GVL/ResetCmd"
+              },
+              "type": "tag"
+            }
+          }
+        },
+        "props": {
+          "color": {
+            "selected": "#19E035"
+          }
+        },
+        "type": "ia.input.toggle-switch"
+      },
+      {
+        "meta": {
+          "name": "ToggleSwitch_2"
+        },
+        "position": {
+          "height": 65,
+          "width": 127,
+          "x": 62.631434020996096,
+          "y": 551.2624230957031
+        },
+        "propConfig": {
+          "props.selected": {
+            "binding": {
+              "config": {
+                "bidirectional": true,
+                "fallbackDelay": 2.5,
+                "mode": "direct",
+                "tagPath": "[default]GVL/EStop"
+              },
+              "type": "tag"
+            }
+          }
+        },
+        "props": {
+          "color": {
+            "selected": "#17EC16"
+          }
+        },
+        "type": "ia.input.toggle-switch"
+      },
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "height": 62,
+          "width": 158,
+          "x": 315,
+          "y": 473
+        },
+        "propConfig": {
+          "props.style.backgroundColor": {
+            "binding": {
+              "config": {
+                "fallbackDelay": 2.5,
+                "mode": "direct",
+                "tagPath": "[default]GVL/MotorOut"
+              },
+              "transforms": [
+                {
+                  "fallback": "#000000",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": true,
+                      "output": "#00FF00"
+                    },
+                    {
+                      "input": false,
+                      "output": "#FF0000"
+                    }
+                  ],
+                  "outputType": "color",
+                  "type": "map"
+                }
+              ],
+              "type": "tag"
+            }
+          }
+        },
+        "props": {
+          "text": "Motor Output"
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Label_0"
+        },
+        "position": {
+          "height": 59,
+          "width": 139,
+          "x": 319,
+          "y": 659
+        },
+        "propConfig": {
+          "props.style.backgroundColor": {
+            "binding": {
+              "config": {
+                "fallbackDelay": 2.5,
+                "mode": "direct",
+                "tagPath": "[default]GVL/OverloadAlarm"
+              },
+              "transforms": [
+                {
+                  "fallback": "#000000",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": false,
+                      "output": "#FF0000"
+                    },
+                    {
+                      "input": true,
+                      "output": "#00FF00"
+                    }
+                  ],
+                  "outputType": "color",
+                  "type": "map"
+                }
+              ],
+              "type": "tag"
+            }
+          }
+        },
+        "props": {
+          "text": "Overload Alarm"
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}
