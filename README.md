@@ -16,8 +16,10 @@ The safety system has three hazard classes - Smoke, Freeze, and Overload. Freeze
 
 The fan proof timer is an interlock, where a fan must prove airflow within five seconds of being commanded to run, otherwise a fault alarm is generated. This is to prevent the heating coil to operate without airflow, which is a common cause of overheating and fire.
 
-## Ignition SCADA Addition
+## Ignition SCADA Addition (under development)
 
 The system is designed to be operated by a modern SCADA interface (Ignition) to replace the manual forcing of variables during development. The OPC UA connection provides secure, standarised communication between the PLC and the HMI, and the alarm summary and the trend historian gives operators the tools they need to monitor, diagnose, and respond to events.
 
 Until then, the supervisory layer was simulated using open-source tools (Docker, Python, InfluxDB, MQTT, Grafana) to provide a clear understanding of the data pipeline. A Python script simulates the thermal behaviour of the AHU (temperature hysteresis) and sends these values to the MQTT broker every second. An MQTT-to-InfluxDB bridge writes these messages with a time-series database. Grafana is then used to visualise temperature on a live dashboard.
+
+Update: Ignition is now under development. Ignition Perspective is in use, with HMIs being developed. Currently, OPC-UA has been correctly established after a troubleshooting log (shown in the Ignition repo), the HMI has been designed using a Coordinate Container, Flex Containers, Toggle Switches, Labels, and Text Boxes. The current stage is about the validation of tag binding and bidirectional read/writes. After this, alarms will be set up and the entire system will be commissioned.
