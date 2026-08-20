@@ -20,7 +20,15 @@ The fan proof timer is an interlock, where a fan must prove airflow within five 
 
 The system is designed to be operated by a modern SCADA interface (Ignition) to replace the manual forcing of variables during development. The OPC UA connection provides secure, standarised communication between the PLC and the HMI, and the alarm summary and the trend historian gives operators the tools they need to monitor, diagnose, and respond to events.
 
-This is achieved with the use of Ignition Perspective. Currently, OPC-UA has been correctly established after a troubleshooting log (shown in the Ignition repo), the HMI has been designed using a Coordinate Container, Flex Containers, Toggle Switches, Labels, and Text Boxes. Tag Binding and Bidirectional Read/Write between CODESYS and Ignition has been implemented and validated after removing Modbus Register Mapping in the Motor GVL to avoid conflict between Modbus and OPC UA communication. Alarm summary and Trend historians are to be added next.
+This is achieved with the use of Ignition Perspective. Currently, OPC-UA has been correctly established after a troubleshooting log (shown in the Ignition repo), give HMI screens has been designed using a Coordinate Container, Flex Containers, Toggle Switches, Labels, Text Boxes, etc. Tag Binding and Bidirectional Read/Write between CODESYS and Ignition has been implemented and validated after removing Modbus Register Mapping in the Motor GVL to avoid conflict between Modbus and OPC UA communication. 
+
+Every HMI screen was made using a Coordinate Container as the background and Flex containers for smaller spaces.
+
+The Overview HMI contains important status indicators, an alarm status table, and four buttons to navigate to the other four HMIs. The navigations buttons were configured using an onClick event which runs a script to navigate to the HMI. Four alarms were configured - Freeze Alarm and Smoke Alarm were given critical priority, and Fan Fault Alarm and Motor Overload Alarm were given high priority. The Alarm Journal HMI displays historical alarm data.
+
+The Motor HMI, Temperature HMI, and Fan Smoke HMI all use Toggle switches (tag binding to its status) for Boolean inputs, Labels (tag binding to background colour) for Boolean outputs, and a 14 segment display for numeric outputs. 
+
+The Temperature HMI also has a Power Chart to display historical tag data for Current Temperature, with tag data stored in a Core Historian which is powered by QuestDB.
 
 Before Ignition, the supervisory layer was simulated using open-source tools (Docker, Python, InfluxDB, MQTT, Grafana) to provide a clear understanding of the data pipeline. A Python script simulates the thermal behaviour of the AHU (temperature hysteresis) and sends these values to the MQTT broker every second. An MQTT-to-InfluxDB bridge writes these messages with a time-series database. Grafana is then used to visualise temperature on a live dashboard. This provides an opportunity for comparative analysis later ahead.
 
