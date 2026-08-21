@@ -4,7 +4,8 @@ The Ignition project provides a modern operator interface for the AHU Control Sy
 
 - Motor Control Screen with Start/Stop, EStop, Overload Alarm, Reset, and Motor Start Counter. 
 - Fan & Smoke Safety Screen with Fan Proof Status, Fan Fault Alarm, Smoke Detection, Smoke ALarm Reset
-- Temperature Control Screen with Setpoints, Current Temp, Heat Output, and Freeze Alarm
-- Overview Screen to navigate to all of the above
+- Temperature Control Screen with Setpoints, Current Temp, Heat Output, and Freeze Alarm, as well as a Power Chart to show Temperature over time.
+- Alarm Journal Screen to show past Alarms
+- Overview Screen to navigate to all of the above, observe major variables as well as an alarm table.
 
 The project connects to the CODESYS runtime via OPC-UA. The given repo has an exported file of the project as well as screenshots.
