@@ -1,0 +1,335 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "CoordinateContainer"
+        },
+        "position": {
+          "height": 721,
+          "width": 759,
+          "x": 16,
+          "y": 24.33
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#808080"
+          }
+        },
+        "type": "ia.container.coord"
+      },
+      {
+        "meta": {
+          "name": "FlexContainer"
+        },
+        "position": {
+          "height": 208,
+          "width": 682,
+          "x": 47,
+          "y": 52
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#D5D5D5"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "meta": {
+          "name": "LedDisplay"
+        },
+        "position": {
+          "height": 32,
+          "width": 128,
+          "x": 114,
+          "y": 70
+        },
+        "propConfig": {
+          "props.value": {
+            "binding": {
+              "config": {
+                "bidirectional": true,
+                "fallbackDelay": 2.5,
+                "mode": "direct",
+                "tagPath": "[default]GVL_Temp/CurrentTemp"
+              },
+              "type": "tag"
+            }
+          }
+        },
+        "type": "ia.display.led-display"
+      },
+      {
+        "meta": {
+          "name": "TextField"
+        },
+        "position": {
+          "height": 24,
+          "width": 114,
+          "x": 128,
+          "y": 120
+        },
+        "props": {
+          "text": "Current Temp"
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "TextField_0"
+        },
+        "position": {
+          "height": 24,
+          "width": 114,
+          "x": 470.97918701171875,
+          "y": 120
+        },
+        "props": {
+          "text": "Setpoint"
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "height": 32,
+          "width": 148,
+          "x": 114,
+          "y": 182
+        },
+        "propConfig": {
+          "props.style.backgroundColor": {
+            "binding": {
+              "config": {
+                "fallbackDelay": 2.5,
+                "mode": "direct",
+                "tagPath": "[default]GVL_Temp/HeatOutput"
+              },
+              "transforms": [
+                {
+                  "fallback": "#000000",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": false,
+                      "output": "#FF0000"
+                    },
+                    {
+                      "input": true,
+                      "output": "#00FF00"
+                    }
+                  ],
+                  "outputType": "color",
+                  "type": "map"
+                }
+              ],
+              "type": "tag"
+            }
+          }
+        },
+        "props": {
+          "text": "Heat Output"
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Label_0"
+        },
+        "position": {
+          "height": 32,
+          "width": 148,
+          "x": 453.97918701171875,
+          "y": 182
+        },
+        "propConfig": {
+          "props.style.backgroundColor": {
+            "binding": {
+              "config": {
+                "fallbackDelay": 2.5,
+                "mode": "direct",
+                "tagPath": "[default]GVL_Temp/FreezeAlarm"
+              },
+              "transforms": [
+                {
+                  "fallback": "#000000",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": false,
+                      "output": "#808080"
+                    },
+                    {
+                      "input": true,
+                      "output": "#00FFFF"
+                    }
+                  ],
+                  "outputType": "color",
+                  "type": "map"
+                }
+              ],
+              "type": "tag"
+            }
+          }
+        },
+        "props": {
+          "text": "Freeze Alarm"
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Slider"
+        },
+        "position": {
+          "height": 32,
+          "width": 192,
+          "x": 431.991,
+          "y": 69.988
+        },
+        "propConfig": {
+          "props.value": {
+            "binding": {
+              "config": {
+                "bidirectional": true,
+                "fallbackDelay": 2.5,
+                "mode": "direct",
+                "tagPath": "[default]GVL_Temp/Setpoint"
+              },
+              "type": "tag"
+            }
+          }
+        },
+        "props": {
+          "max": 25
+        },
+        "type": "ia.input.slider"
+      },
+      {
+        "meta": {
+          "name": "PowerChart"
+        },
+        "position": {
+          "height": 410,
+          "width": 692,
+          "x": 39.5,
+          "y": 289.31
+        },
+        "props": {
+          "config": {
+            "measureOfTime": "minutes",
+            "rangeEndDate": {
+              "$": [
+                "ts",
+                0,
+                1787334378169
+              ],
+              "$ts": 1787334375133
+            },
+            "rangeStartDate": {
+              "$": [
+                "ts",
+                0,
+                1787334378168
+              ],
+              "$ts": 1787333478133
+            },
+            "unitOfTime": 15
+          },
+          "interaction": {
+            "chartZoomLevel": 1,
+            "rangeZoomLevel": 1
+          },
+          "pens": [
+            {
+              "axis": "",
+              "data": {
+                "aggregateMode": "default",
+                "source": "histprov:AHU_Historian:/sys:Ignition-AbdulMoizLenovo:/prov:default:/tag:GVL_Temp/CurrentTemp"
+              },
+              "display": {
+                "breakLine": true,
+                "interpolation": "curveLinear",
+                "radius": 3,
+                "styles": {
+                  "highlighted": {
+                    "fill": {
+                      "color": "#63BEA2",
+                      "opacity": 1
+                    },
+                    "stroke": {
+                      "color": "#63BEA2",
+                      "dashArray": 0,
+                      "opacity": 1,
+                      "width": 1
+                    }
+                  },
+                  "muted": {
+                    "fill": {
+                      "color": "#63BEA2",
+                      "opacity": 0.4
+                    },
+                    "stroke": {
+                      "color": "#63BEA2",
+                      "dashArray": 0,
+                      "opacity": 0.4,
+                      "width": 1
+                    }
+                  },
+                  "normal": {
+                    "fill": {
+                      "color": "#63BEA2",
+                      "opacity": 0.8
+                    },
+                    "stroke": {
+                      "color": "#63BEA2",
+                      "dashArray": 0,
+                      "opacity": 0.8,
+                      "width": 1
+                    }
+                  },
+                  "selected": {
+                    "fill": {
+                      "color": "#63BEA2",
+                      "opacity": 1
+                    },
+                    "stroke": {
+                      "color": "#63BEA2",
+                      "dashArray": 0,
+                      "opacity": 1,
+                      "width": 1
+                    }
+                  }
+                },
+                "type": "line"
+              },
+              "enabled": true,
+              "name": "CurrentTemp",
+              "plot": 0,
+              "selectable": true,
+              "visible": true
+            }
+          ],
+          "style": {
+            "backgroundColor": "#D5D5D5"
+          }
+        },
+        "type": "ia.chart.powerchart"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": 10,
+      "y": -154
+    },
+    "type": "ia.container.coord"
+  }
+}

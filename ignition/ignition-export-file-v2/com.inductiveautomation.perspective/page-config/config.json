@@ -2,17 +2,30 @@
   "pages": {
     "/": {
       "title": "",
+      "viewPath": "OverviewHMI"
+    },
+    "/AlarmJournalHMI": {
+      "title": "",
+      "viewPath": "AlarmJournalHMI"
+    },
+    "/FanSmokeHMI": {
+      "title": "",
+      "viewPath": "FanSmokeHMI"
+    },
+    "/MotorHMI": {
+      "title": "",
       "viewPath": "MotorHMI"
+    },
+    "/TemperatureHMI": {
+      "title": "",
+      "viewPath": "TemperatureHMI"
     },
     "/alarms": {
       "viewPath": "Page/Alarms"
     },
     "/charts": {
-      "viewPath": "Page/Charts"
-    },
-    "/new-page": {
       "title": "",
-      "viewPath": ""
+      "viewPath": "Page/Charts"
     }
   },
   "sharedDocks": {

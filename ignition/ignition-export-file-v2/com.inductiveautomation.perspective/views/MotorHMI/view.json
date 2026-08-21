@@ -126,8 +126,8 @@
         "position": {
           "height": 32,
           "width": 150,
-          "x": 313.6596815490723,
-          "y": 358.92428515625
+          "x": 237.92043701171878,
+          "y": 358.9031870117187
         },
         "props": {
           "text": "Stop Motor"
@@ -147,8 +147,8 @@
         "position": {
           "height": 32,
           "width": 150,
-          "x": 568.6481172180177,
-          "y": 358.88728515625
+          "x": 428.1063740234375,
+          "y": 358.86618701171875
         },
         "props": {
           "text": "Reset Motor"
@@ -269,8 +269,8 @@
         "position": {
           "height": 65,
           "width": 127,
-          "x": 313.9558435058594,
-          "y": 267.21478515625
+          "x": 255.95600000000002,
+          "y": 266.8395
         },
         "propConfig": {
           "props.selected": {
@@ -299,8 +299,8 @@
         "position": {
           "height": 65,
           "width": 127,
-          "x": 568.9558740234374,
-          "y": 267.11978515625
+          "x": 439.56018701171877,
+          "y": 267.4325
         },
         "propConfig": {
           "props.selected": {
@@ -440,6 +440,46 @@
           "text": "Overload Alarm"
         },
         "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "ToggleSwitch_3"
+        },
+        "position": {
+          "height": 36,
+          "width": 96,
+          "x": 613.7533740234375,
+          "y": 281.8125
+        },
+        "propConfig": {
+          "props.selected": {
+            "binding": {
+              "config": {
+                "bidirectional": true,
+                "fallbackDelay": 2.5,
+                "mode": "direct",
+                "tagPath": "[default]GVL/OverloadTrip"
+              },
+              "type": "tag"
+            }
+          }
+        },
+        "type": "ia.input.toggle-switch"
+      },
+      {
+        "meta": {
+          "name": "TextField"
+        },
+        "position": {
+          "height": 32,
+          "width": 128,
+          "x": 605.63,
+          "y": 358.96
+        },
+        "props": {
+          "text": "Overload Trip"
+        },
+        "type": "ia.input.text-field"
       }
     ],
     "meta": {

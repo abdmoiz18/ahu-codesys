@@ -1,0 +1,42 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "CoordinateContainer"
+        },
+        "position": {
+          "height": 692,
+          "width": 724,
+          "x": 36,
+          "y": 58
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#808080"
+          }
+        },
+        "type": "ia.container.coord"
+      },
+      {
+        "meta": {
+          "name": "AlarmJournalTable"
+        },
+        "position": {
+          "height": 600,
+          "width": 626,
+          "x": 85,
+          "y": 104
+        },
+        "type": "ia.display.alarmjournaltable"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}
