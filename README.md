@@ -1,8 +1,8 @@
 # AHU Industrial Automation Lab  
 
-This is a GitHub repository to simulate the control system for an Air Handling Unit (AHU) of a medium size building. The Codesys section consists of Motor Seal-in logic, Temperature Hysteresis logic, Freeze Protection, Smoke Alarm Latch, Motor Start Counter, Fan Proof Check, Combined Safety Alarm override, all written and implemented in both Strctured Text (ST) and Ladder Logic (LD).
+This is a GitHub repository to simulate the control system for an Air Handling Unit (AHU) of a medium size facility. The Codesys section consists of Motor Seal-in logic, Temperature Hysteresis logic, Freeze Protection, Smoke Alarm Latch, Motor Start Counter, Fan Proof Check, Combined Safety Alarm override, all written and implemented in both Strctured Text (ST) and Ladder Logic (LD).
 
-This system was designed for a medium-size mission-critical facility such as a hospital wing, pharmaceutical cleanroom, financial trading floor, etc, where uninterrupted operation is not just a convenience but a necessity and any failure carries critical consequences to life safety, product quality, data integrity, or finances.
+The simulation demonstrates fail-safe interlocking, robust industry-standard algorithms and control logic patterns used in commercial HVAC systems. However, in the end, it is still intended to be nothing more than a simplified single PLC simulation for educational purposes. Real-world deployments in mission-critical facilities such as in hospitals and pharmaceutical cleanrooms would require additional redundanacy, automatic failover, hardware voting, and comprehensive risk assesssment, all of which are beyond the scope of this repository. 
 
 The Air Handling Unit (AHU) itself is a variable-air volume (VAV) serving a single critical zone. It includes a supply fan with a proof-of-flow sensor, an on/off heating coil, and a smoke detector. It is controlled by a Programmable Logic Controller (PLC) that executes ST or LD logic, ordered to prioritise safety and energy efficiency.
 
