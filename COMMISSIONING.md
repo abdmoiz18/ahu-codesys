@@ -19,11 +19,15 @@
 - Press EStop while motor runs (expected MotorOut FALSE, Alarm Text still shows "NORMAL OPERATION" as it is hardware safety, not an alarm)
 - Release EStop and press StartCmd (normal operation)
 
+Ignition: MotorOut LED reflects state, OverloadAlarm appears in Alarm Status Table when triggered.
+
 ## 2. Smoke Alarm - Latch, Safety Override, Alarm Priority
 
 - Press SmokeDetected while motor runs (expected SmokeAlarmMem and SmokeAlarm TRUE, MotorOut and HeatOutput FALSE, Alarm Text = "SMOKE ALARM - SYSTEM SHUTDOWN")
 - Release SmokeDetected and restart motor (Alarm stays latched and motor dosen't restart)
 - Press ResetSmoke and restart motor (SmokeAlarmMem and SmokeAlarm FALSE, motor starts normally)
+
+Ignition: SmokeAlarm appears in Alarm Status Table with Critical priority and correct Display Path, LED turns red.
 
 ## 3. Freeze Protection - Latch, Override, Priority
 
@@ -31,14 +35,20 @@
 - Force CurrentTemp back and restart motor (alarm stays latched and motor dosen't restart)
 - Force FreezeAlarmMem FALSE and restart motor (normal operation)
 
+Ignition: FreezeAlarm appears in Alarm Status Table with Critical priority, this alarm takes highest priority in HMI.
+
 ## 4. Fan Proof Timer
 
 - While motor runs, force FanProofSignal FALSE (expected FanProofTimer to start counting and for FanProofTimer.Q and FanFaultAlarm TRUE after 5+ seconds)
 - Force FanProofSignal TRUE (FanProofTimer resets and FanFaultAlarm remains TRUE, latched)
 
+Ignition: FanFaultAlarm appears in Alarm Status Table; Fan Status LED updates.
+
 ## 5. Temperature Hysteresis
 
 - Observe SimTemp while motor and heating are on (expected temperature rise and fall at the given rate, HeatOutput FALSE when temperature exceeds deadband, HeatOutput TRUE when temperature falls below deadband)
+
+Ignition: Temperature trend appears in Power Chart; HeatOutput LED reflects state.
 
 ## 6. Combined Alarm Integration
 
@@ -48,5 +58,7 @@
 - Reset smoke and freeze (Overload alarm text)
 - Reset overload (Alarm text - "NORMAL OPERATION")
 - Observe MotorStartCount (must not increment)
+
+Ignition: Alarm Status Table shows correct active alarms; priority order verified in HMI.
 
 ---
