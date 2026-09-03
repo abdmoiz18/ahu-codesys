@@ -3,18 +3,18 @@
 ## 1. Motor Seal-in - Start, Stop, Restart, Overload Trip, Emergency Stop
 
 - Start the system
-- Force StartCmd TRUE (expected MotorInternal = TRUE, MotorOut = TRUE)
-- Force StartCmd FALSE (expected outputs above to retain their state)
+- Press StartCmd TRUE (expected MotorInternal = TRUE, MotorOut = TRUE)
+- Press StartCmd FALSE (expected outputs above to retain their state)
 - Observe MotorStartCount (expected increment to 1)
 
 - Reset StartCmd and force StopCmd TRUE (expected MotorInternal = FALSE, MotorOut = FALSE)
-- Force StartCmd TRUE (Motor runs again)
+- Press StartCmd TRUE (Motor runs again)
 - Observe MotorStartCount (expected increment to 2)
 
 - Press OverloadTrip while Motor is running (expected OverloadMem TRUE, OverloadAlarm TRUE, MotorOut FALSE, Alarm Text - "OVERLOAD TRIPPED - Motor Off")
-- Force StartCmd TRUE (Motor does not start, MotorOut remains FALSE)
+- Press StartCmd TRUE (Motor does not start, MotorOut remains FALSE)
 - Press ResetCmd (expected OverloadMem and OverloadAlarm FALSE)
-- Force StartCmd (normal operation)
+- Press StartCmd (normal operation)
 
 - Press EStop while motor runs (expected MotorOut FALSE, Alarm Text still shows "NORMAL OPERATION" as it is hardware safety, not an alarm)
 - Release EStop and press StartCmd (normal operation)
@@ -32,15 +32,15 @@ Ignition: SmokeAlarm appears in Alarm Status Table with Critical priority and co
 ## 3. Freeze Protection - Latch, Override, Priority
 
 - While Motor and Heating runs, force temp to 4 C (epxected FreezeAlarmMem and FreezeAlarm TRUE, MotorOut and HeatOutput FALSE, Alarm Text - "FREEZE PROTECTION - SYSTEM SHUTDOWN")
-- Force CurrentTemp back and restart motor (alarm stays latched and motor dosen't restart)
-- Force FreezeAlarmMem FALSE and restart motor (normal operation)
+- Press CurrentTemp back and restart motor (alarm stays latched and motor dosen't restart)
+- Press FreezeAlarmMem FALSE and restart motor (normal operation)
 
 Ignition: FreezeAlarm appears in Alarm Status Table with Critical priority, this alarm takes highest priority in HMI.
 
 ## 4. Fan Proof Timer
 
 - While motor runs, force FanProofSignal FALSE (expected FanProofTimer to start counting and for FanProofTimer.Q and FanFaultAlarm TRUE after 5+ seconds)
-- Force FanProofSignal TRUE (FanProofTimer resets and FanFaultAlarm remains TRUE, latched)
+- Press FanProofSignal TRUE (FanProofTimer resets and FanFaultAlarm remains TRUE, latched)
 
 Ignition: FanFaultAlarm appears in Alarm Status Table; Fan Status LED updates.
 
