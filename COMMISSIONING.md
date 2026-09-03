@@ -7,7 +7,7 @@
 - Press StartCmd FALSE (expected outputs above to retain their state)
 - Observe MotorStartCount (expected increment to 1)
 
-- Reset StartCmd and force StopCmd TRUE (expected MotorInternal = FALSE, MotorOut = FALSE)
+- Reset StartCmd and press StopCmd TRUE (expected MotorInternal = FALSE, MotorOut = FALSE)
 - Press StartCmd TRUE (Motor runs again)
 - Observe MotorStartCount (expected increment to 2)
 
@@ -39,7 +39,7 @@ Ignition: FreezeAlarm appears in Alarm Status Table with Critical priority, this
 
 ## 4. Fan Proof Timer
 
-- While motor runs, force FanProofSignal FALSE (expected FanProofTimer to start counting and for FanProofTimer.Q and FanFaultAlarm TRUE after 5+ seconds)
+- While motor runs, press FanProofSignal FALSE (expected FanProofTimer to start counting and for FanProofTimer.Q and FanFaultAlarm TRUE after 5+ seconds)
 - Press FanProofSignal TRUE (FanProofTimer resets and FanFaultAlarm remains TRUE, latched)
 
 Ignition: FanFaultAlarm appears in Alarm Status Table; Fan Status LED updates.
